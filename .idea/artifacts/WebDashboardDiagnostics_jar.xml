@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WebDashboardDiagnostics:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebDashboardDiagnostics_jar</output-path>
+    <root id="archive" name="WebDashboardDiagnostics.jar">
+      <element id="module-output" name="WebDashboardDiagnostics" />
+    </root>
+  </artifact>
+</component>
