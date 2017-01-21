@@ -11,19 +11,6 @@ import java.time.format.DateTimeFormatter;
  * Created by andrew on 1/14/17.
  */
 class WBLogWriter extends Writer {
-
-	private class LogObject {
-		private String timestamp;
-		private String type;
-		private String log;
-
-		public LogObject(String type, String log) {
-			this.timestamp = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-			this.type = type;
-			this.log = log;
-		}
-	}
-
 	private final String logName;
 	public WBLogWriter(String logName) {
 		this.logName = logName;
