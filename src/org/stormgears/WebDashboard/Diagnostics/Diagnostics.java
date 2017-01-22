@@ -34,19 +34,26 @@ public class Diagnostics {
 //		meow = new CANTalon(6);
 
 		// Hook into all threads
-		Set<Thread> threads = Thread.getAllStackTraces().keySet();
-		Thread[] threadArray = threads.toArray(new Thread[threads.size()]);
+//		Set<Thread> threads = Thread.getAllStackTraces().keySet();
+//		Thread[] threadArray = threads.toArray(new Thread[threads.size()]);
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			@Override
 			public void uncaughtException(Thread t, Throwable e) {
-				log("EXCEP", e.toString());
-				log("EXCEP", e.getMessage());
-				String out = "";
-				StackTraceElement[] stackTrace = e.getStackTrace();
-				for (StackTraceElement stackTraceElement : stackTrace) {
-					out += stackTraceElement.toString();
-				}
-				log("EXCEP", out);
+				log("EXCEP", "Thread: " + t);
+//				log("EXCEP", e.toString());
+//				log("EXCEP", e.getMessage());
+//				String out = "";
+//				StackTraceElement[] stackTrace = e.getStackTrace();
+//				for (StackTraceElement stackTraceElement : stackTrace) {
+//					out += stackTraceElement.toString();
+//				}
+//				log("EXCEP", out);
+
+				StringWriter out = new StringWriter();
+				e.printStackTrace(new PrintWriter(out));
+				log("EXCEP", out.toString());
+
+				e.printStackTrace();
 			}
 		});
 	}
