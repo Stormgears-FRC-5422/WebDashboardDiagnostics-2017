@@ -3,7 +3,9 @@ package org.stormgears.WebDashboard.Diagnostics;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.util.Set;
 
+import edu.wpi.first.wpilibj.TalonSRX;
 import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.stormgears.WebDashboard.WebDashboard;
@@ -15,6 +17,7 @@ public class Diagnostics {
 	/**
 	 * Hooks into the various systems in which to do diagnostics (unfinished)
 	 */
+//	static CANTalon meow;
 	public static void init() {
 		/*
 		 * FIXME: Hook into stdout and stderr
@@ -28,7 +31,24 @@ public class Diagnostics {
 //		PrintStream errPs = new PrintStream(err);
 //		System.setOut(errPs);
 
+//		meow = new CANTalon(6);
 
+		// Hook into all threads
+		Set<Thread> threads = Thread.getAllStackTraces().keySet();
+		Thread[] threadArray = threads.toArray(new Thread[threads.size()]);
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread t, Throwable e) {
+				log("EXCEP", e.toString());
+				log("EXCEP", e.getMessage());
+				String out = "";
+				StackTraceElement[] stackTrace = e.getStackTrace();
+				for (StackTraceElement stackTraceElement : stackTrace) {
+					out += stackTraceElement.toString();
+				}
+				log("EXCEP", out);
+			}
+		});
 	}
 
 	/**
@@ -51,5 +71,7 @@ public class Diagnostics {
 	private static void log(LogObject data) {
 		WebDashboard.emit("log", data);
 	}
+
+
 
 }
