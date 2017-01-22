@@ -17,37 +17,17 @@ public class Diagnostics {
 	/**
 	 * Hooks into the various systems in which to do diagnostics (unfinished)
 	 */
-//	static CANTalon meow;
 	public static void init() {
 		/*
 		 * FIXME: Hook into stdout and stderr
 		 * (this is not working right now, disable it)
 		 */
-//		TeeOutputStream out = new TeeOutputStream(System.out, new WriterOutputStream((new WBLogWriter("STDOUT")), "UTF-8"));
-//		PrintStream outPs = new PrintStream(out);
-//		System.setOut(outPs);
-//
-//		TeeOutputStream err = new TeeOutputStream(System.err, new WriterOutputStream((new WBLogWriter("STDERR")), "UTF-8"));
-//		PrintStream errPs = new PrintStream(err);
-//		System.setOut(errPs);
 
-//		meow = new CANTalon(6);
-
-		// Hook into all threads
-//		Set<Thread> threads = Thread.getAllStackTraces().keySet();
-//		Thread[] threadArray = threads.toArray(new Thread[threads.size()]);
+		// exception handler
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			@Override
 			public void uncaughtException(Thread t, Throwable e) {
 				log("EXCEP", "Thread: " + t);
-//				log("EXCEP", e.toString());
-//				log("EXCEP", e.getMessage());
-//				String out = "";
-//				StackTraceElement[] stackTrace = e.getStackTrace();
-//				for (StackTraceElement stackTraceElement : stackTrace) {
-//					out += stackTraceElement.toString();
-//				}
-//				log("EXCEP", out);
 
 				StringWriter out = new StringWriter();
 				e.printStackTrace(new PrintWriter(out));
@@ -78,7 +58,5 @@ public class Diagnostics {
 	private static void log(LogObject data) {
 		WebDashboard.emit("log", data);
 	}
-
-
 
 }
