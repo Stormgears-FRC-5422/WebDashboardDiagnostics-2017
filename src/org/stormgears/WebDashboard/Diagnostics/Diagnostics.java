@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.ctre.CANTalon;
 import org.stormgears.WebDashboard.WebDashboard;
@@ -50,6 +52,14 @@ public class Diagnostics {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		Timer talonTimer = new Timer("talonTimer");
+		talonTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				// TODO
+			}
+		}, 0, 250);
 	}
 
 	/**
