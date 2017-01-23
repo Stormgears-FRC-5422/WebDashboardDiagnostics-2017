@@ -68,8 +68,8 @@ public class NIDevice {
 
 		return new NIDevice(
 				properties.get(0x1000000).value,
-				properties.get(0x1004000).value,
-				properties.get(0x1006000).value,
+				properties.get(0x1004000) != null ? properties.get(0x1004000).value : "",
+				properties.get(0x1006000) != null ? properties.get(0x1006000).value : "",
 				properties.get(0x101D000).value,
 				properties.get(0x101E000).value,
 				properties.get(0x101F000).value,

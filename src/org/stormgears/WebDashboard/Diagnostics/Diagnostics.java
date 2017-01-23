@@ -27,7 +27,7 @@ public class Diagnostics {
 	 */
 	public static void init() {
 		/*
-		 * FIXME: Hook into stdout and stderr
+		 * TODO: Hook into stdout and stderr
 		 * (this is not working right now, disable it)
 		 */
 
@@ -44,6 +44,12 @@ public class Diagnostics {
 				e.printStackTrace();
 			}
 		});
+
+		try {
+			getDevices();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -73,6 +79,28 @@ public class Diagnostics {
 	 * @throws Exception
 	 */
 	static void getDevices() throws Exception {
+//		InputStream is = getDeviceStream();
+		InputStream is = getDeviceTestingStream();
+
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(is);
+
+		NodeList bags = document.getElementsByTagName("PropertyBag");
+		ArrayList<NIDevice> devices = new ArrayList<>();
+		for (int i = 0; i < bags.getLength(); i++) {
+			NIDevice dev = NIDevice.parsePropertyBag(bags.item(i));
+			devices.add(dev);
+			if (dev.type.equalsIgnoreCase("Talon SRX")) {
+				byte talon = Byte.parseByte(dev.properties.get(0x1A110000).value);
+//				talons.add(new CANTalon(talon));
+			}
+		}
+
+		WebDashboard.set("devices", devices);
+	}
+
+	private static InputStream getDeviceStream() throws Exception {
 		URL nisys = new URL("http://roborio-5422-frc.local/nisysapi/server");
 		HttpURLConnection c = (HttpURLConnection) nisys.openConnection();
 		c.setRequestMethod("POST");
@@ -87,23 +115,16 @@ public class Diagnostics {
 		wr.writeBytes(postData);
 		wr.close();
 
-		InputStream is = c.getInputStream();
+		return c.getInputStream();
+	}
+	private static InputStream getDeviceTestingStream() throws Exception {
+		URL nisys = new URL("http://71.248.165.187/untitled.xml");
+		HttpURLConnection c = (HttpURLConnection) nisys.openConnection();
 
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document document = documentBuilder.parse(is);
+		c.setUseCaches(false);
+		c.setDoOutput(true);
 
-		NodeList bags = document.getElementsByTagName("PropertyBag");
-		ArrayList<NIDevice> devices = new ArrayList<>();
-		for (int i = 0; i < bags.getLength(); i++) {
-			NIDevice dev = NIDevice.parsePropertyBag(bags.item(i));
-			devices.add(dev);
-			if (dev.type.equalsIgnoreCase("Talon SRX")) {
-				byte talon = Byte.parseByte(dev.properties.get(0x1A110000).value);
-				talons.add(new CANTalon(talon));
-			}
-		}
-
+		return c.getInputStream();
 	}
 
 }
