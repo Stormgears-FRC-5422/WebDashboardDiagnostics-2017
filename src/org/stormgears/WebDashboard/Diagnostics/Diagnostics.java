@@ -79,8 +79,8 @@ public class Diagnostics {
 	 * @throws Exception
 	 */
 	static void getDevices() throws Exception {
-//		InputStream is = getDeviceStream();
-		InputStream is = getDeviceTestingStream();
+		InputStream is = getDeviceStream();
+//		InputStream is = getDeviceTestingStream();
 
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -93,7 +93,7 @@ public class Diagnostics {
 			devices.add(dev);
 			if (dev.type.equalsIgnoreCase("Talon SRX")) {
 				byte talon = Byte.parseByte(dev.properties.get(0x1A110000).value);
-//				talons.add(new CANTalon(talon));
+				talons.add(new CANTalon(talon));
 			}
 		}
 
