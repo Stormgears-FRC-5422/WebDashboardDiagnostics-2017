@@ -23,6 +23,7 @@ public class Diagnostics {
 	 * A list of Talon SRX devices attached to the robot
 	 */
 	static ArrayList<CANTalon> talons = new ArrayList<>();
+	static ArrayList<TalonData> talonDatas = new ArrayList<>();
 
 	/**
 	 * Hooks into the various systems in which to do diagnostics (unfinished)
@@ -57,7 +58,73 @@ public class Diagnostics {
 		talonTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				// TODO
+				for (int i = 0; i < talons.size(); i++) {
+					CANTalon talon = talons.get(i);
+					TalonData talonData = talonDatas.get(i);
+
+					// update the WebDashboard data
+					// generated with sublime text
+					// sorry
+					CANTalon.ControlMode controlMode = talon.getControlMode();
+					if (controlMode != talonData.controlMode) {
+						WebDashboard.set("talons[" + i + "].controlMode", controlMode);
+						talonData.controlMode = controlMode;
+					}
+
+					double getValue = talon.get();
+					if (getValue != talonData.getValue) {
+						WebDashboard.set("talons[" + i + "].getValue", getValue);
+						talonData.getValue = getValue;
+					}
+
+					double busVoltage = talon.getBusVoltage();
+					if (busVoltage != talonData.busVoltage) {
+						WebDashboard.set("talons[" + i + "].busVoltage", busVoltage);
+						talonData.busVoltage = busVoltage;
+					}
+
+					int encPosition = talon.getEncPosition();
+					if (encPosition != talonData.encPosition) {
+						WebDashboard.set("talons[" + i + "].encPosition", encPosition);
+						talonData.encPosition = encPosition;
+					}
+
+					int encVelocity = talon.getEncVelocity();
+					if (encVelocity != talonData.encVelocity) {
+						WebDashboard.set("talons[" + i + "].encVelocity", encVelocity);
+						talonData.encVelocity = encVelocity;
+					}
+
+					double outputCurrent = talon.getOutputCurrent();
+					if (outputCurrent != talonData.outputCurrent) {
+						WebDashboard.set("talons[" + i + "].outputCurrent", outputCurrent);
+						talonData.outputCurrent = outputCurrent;
+					}
+
+					double outputVoltage = talon.getOutputVoltage();
+					if (outputVoltage != talonData.outputVoltage) {
+						WebDashboard.set("talons[" + i + "].outputVoltage", outputVoltage);
+						talonData.outputVoltage = outputVoltage;
+					}
+
+					double position = talon.getPosition();
+					if (position != talonData.position) {
+						WebDashboard.set("talons[" + i + "].position", position);
+						talonData.position = position;
+					}
+
+					double speed = talon.getSpeed();
+					if (speed != talonData.speed) {
+						WebDashboard.set("talons[" + i + "].speed", speed);
+						talonData.speed = speed;
+					}
+
+					double temperature = talon.getTemperature();
+					if (temperature != talonData.temperature) {
+						WebDashboard.set("talons[" + i + "].temperature", temperature);
+						talonData.temperature = temperature;
+					}
+				}
 			}
 		}, 0, 250);
 	}
@@ -103,11 +170,26 @@ public class Diagnostics {
 			devices.add(dev);
 			if (dev.type.equalsIgnoreCase("Talon SRX")) {
 				byte talon = Byte.parseByte(dev.properties.get(0x1A110000).value);
-				talons.add(new CANTalon(talon));
+				CANTalon canTalon = new CANTalon(talon);
+				talons.add(canTalon);
+				talonDatas.add(new TalonData(
+						canTalon.getDeviceID(),
+						canTalon.getControlMode(),
+						canTalon.get(),
+						canTalon.getBusVoltage(),
+						canTalon.getEncPosition(),
+						canTalon.getEncVelocity(),
+						canTalon.getOutputCurrent(),
+						canTalon.getOutputVoltage(),
+						canTalon.getPosition(),
+						canTalon.getSpeed(),
+						canTalon.getTemperature()
+				));
 			}
 		}
 
 		WebDashboard.set("devices", devices);
+		WebDashboard.set("talons", talonDatas);
 	}
 
 	private static InputStream getDeviceStream() throws Exception {
