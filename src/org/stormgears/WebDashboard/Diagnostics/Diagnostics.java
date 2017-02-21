@@ -25,10 +25,14 @@ public class Diagnostics {
 	static ArrayList<CANTalon> talons = new ArrayList<>();
 	static ArrayList<TalonData> talonDatas = new ArrayList<>();
 
+	public static void init() {
+		Diagnostics.init(false);
+	}
+
 	/**
 	 * Hooks into the various systems in which to do diagnostics (unfinished)
 	 */
-	public static void init() {
+	public static void init(boolean production) {
 		/*
 		 * TODO: Hook into stdout and stderr
 		 * (this is not working right now, disable it)
@@ -47,6 +51,14 @@ public class Diagnostics {
 				e.printStackTrace();
 			}
 		});
+
+		// intercept system.out
+		System.setOut(new PrintStreamInterceptor(System.out, "STDOUT"));
+
+		// Place all code to run in development mode below this if statement
+		if (production) {
+			return;
+		}
 
 		try {
 			getDevices();

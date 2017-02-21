@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 public class DiagTest {
 	public static void main(String args[]) throws Exception {
 		WebDashboard.init("localhost:5802");
-		Diagnostics.init();
+		Diagnostics.init(true);
 		System.out.println("MEOW");
 
 //		throw new IllegalArgumentException("MEOW");
