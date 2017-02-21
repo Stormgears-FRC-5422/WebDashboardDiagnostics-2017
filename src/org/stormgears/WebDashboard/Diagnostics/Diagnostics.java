@@ -8,6 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.ctre.CANTalon;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.I2C;
 import org.stormgears.WebDashboard.WebDashboard;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -24,6 +26,9 @@ public class Diagnostics {
 	 */
 	static ArrayList<CANTalon> talons = new ArrayList<>();
 	static ArrayList<TalonData> talonDatas = new ArrayList<>();
+
+	static AHRS ahrs;
+	static AHRSData ahrsData;
 
 	public static void init() {
 		Diagnostics.init(false);
@@ -66,10 +71,13 @@ public class Diagnostics {
 			e.printStackTrace();
 		}
 
-		Timer talonTimer = new Timer("talonTimer");
-		talonTimer.scheduleAtFixedRate(new TimerTask() {
+		ahrs = new AHRS(I2C.Port.kMXP);
+
+		Timer timer = new Timer("diagnosticsTimer");
+		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
+				// Talons
 				for (int i = 0; i < talons.size(); i++) {
 					CANTalon talon = talons.get(i);
 					TalonData talonData = talonDatas.get(i);
@@ -136,6 +144,190 @@ public class Diagnostics {
 						WebDashboard.set("talons[" + i + "].temperature", temperature);
 						talonData.temperature = temperature;
 					}
+				}
+
+				// NavX
+				{
+					float pitch = ahrs.getPitch();
+					if (ahrsData.pitch != pitch) {
+						ahrsData.pitch = pitch;
+						WebDashboard.set("ahrs.pitch", pitch);
+					}
+					float roll = ahrs.getRoll();
+					if (ahrsData.roll != roll) {
+						ahrsData.roll = roll;
+						WebDashboard.set("ahrs.roll", roll);
+					}
+					float yaw = ahrs.getYaw();
+					if (ahrsData.yaw != yaw) {
+						ahrsData.yaw = yaw;
+						WebDashboard.set("ahrs.yaw", yaw);
+					}
+					double rate = ahrs.getRate();
+					if (ahrsData.rate != rate) {
+						ahrsData.rate = rate;
+						WebDashboard.set("ahrs.rate", rate);
+					}
+					double angle = ahrs.getAngle();
+					if (ahrsData.angle != angle) {
+						ahrsData.angle = angle;
+						WebDashboard.set("ahrs.angle", angle);
+					}
+					double angleAdjustment = ahrs.getAngleAdjustment();
+					if (ahrsData.angleAdjustment != angleAdjustment) {
+						ahrsData.angleAdjustment = angleAdjustment;
+						WebDashboard.set("ahrs.angleAdjustment", angleAdjustment);
+					}
+					double byteCount = ahrs.getByteCount();
+					if (ahrsData.byteCount != byteCount) {
+						ahrsData.byteCount = byteCount;
+						WebDashboard.set("ahrs.byteCount", byteCount);
+					}
+					float compassHeading = ahrs.getCompassHeading();
+					if (ahrsData.compassHeading != compassHeading) {
+						ahrsData.compassHeading = compassHeading;
+						WebDashboard.set("ahrs.compassHeading", compassHeading);
+					}
+					float fusedHeading = ahrs.getFusedHeading();
+					if (ahrsData.fusedHeading != fusedHeading) {
+						ahrsData.fusedHeading = fusedHeading;
+						WebDashboard.set("ahrs.fusedHeading", fusedHeading);
+					}
+					float rawAccelX = ahrs.getRawAccelX();
+					if (ahrsData.rawAccelX != rawAccelX) {
+						ahrsData.rawAccelX = rawAccelX;
+						WebDashboard.set("ahrs.rawAccelX", rawAccelX);
+					}
+					float rawAccelY = ahrs.getRawAccelY();
+					if (ahrsData.rawAccelY != rawAccelY) {
+						ahrsData.rawAccelY = rawAccelY;
+						WebDashboard.set("ahrs.rawAccelY", rawAccelY);
+					}
+					float rawAccelZ = ahrs.getRawAccelZ();
+					if (ahrsData.rawAccelZ != rawAccelZ) {
+						ahrsData.rawAccelZ = rawAccelZ;
+						WebDashboard.set("ahrs.rawAccelZ", rawAccelZ);
+					}
+					float rawGyroX = ahrs.getRawGyroX();
+					if (ahrsData.rawGyroX != rawGyroX) {
+						ahrsData.rawGyroX = rawGyroX;
+						WebDashboard.set("ahrs.rawGyroX", rawGyroX);
+					}
+					float rawGyroY = ahrs.getRawGyroY();
+					if (ahrsData.rawGyroY != rawGyroY) {
+						ahrsData.rawGyroY = rawGyroY;
+						WebDashboard.set("ahrs.rawGyroY", rawGyroY);
+					}
+					float rawGyroZ = ahrs.getRawGyroZ();
+					if (ahrsData.rawGyroZ != rawGyroZ) {
+						ahrsData.rawGyroZ = rawGyroZ;
+						WebDashboard.set("ahrs.rawGyroZ", rawGyroZ);
+					}
+					float rawMagX = ahrs.getRawMagX();
+					if (ahrsData.rawMagX != rawMagX) {
+						ahrsData.rawMagX = rawMagX;
+						WebDashboard.set("ahrs.rawMagX", rawMagX);
+					}
+					float rawMagY = ahrs.getRawMagY();
+					if (ahrsData.rawMagY != rawMagY) {
+						ahrsData.rawMagY = rawMagY;
+						WebDashboard.set("ahrs.rawMagY", rawMagY);
+					}
+					float rawMagZ = ahrs.getRawMagZ();
+					if (ahrsData.rawMagZ != rawMagZ) {
+						ahrsData.rawMagZ = rawMagZ;
+						WebDashboard.set("ahrs.rawMagZ", rawMagZ);
+					}
+					float displacementX = ahrs.getDisplacementX();
+					if (ahrsData.displacementX != displacementX) {
+						ahrsData.displacementX = displacementX;
+						WebDashboard.set("ahrs.displacementX", displacementX);
+					}
+					float displacementY = ahrs.getDisplacementY();
+					if (ahrsData.displacementY != displacementY) {
+						ahrsData.displacementY = displacementY;
+						WebDashboard.set("ahrs.displacementY", displacementY);
+					}
+					float displacementZ = ahrs.getDisplacementZ();
+					if (ahrsData.displacementZ != displacementZ) {
+						ahrsData.displacementZ = displacementZ;
+						WebDashboard.set("ahrs.displacementZ", displacementZ);
+					}
+					float velocityX = ahrs.getVelocityX();
+					if (ahrsData.velocityX != velocityX) {
+						ahrsData.velocityX = velocityX;
+						WebDashboard.set("ahrs.velocityX", velocityX);
+					}
+					float velocityY = ahrs.getVelocityY();
+					if (ahrsData.velocityY != velocityY) {
+						ahrsData.velocityY = velocityY;
+						WebDashboard.set("ahrs.velocityY", velocityY);
+					}
+					float velocityZ = ahrs.getVelocityZ();
+					if (ahrsData.velocityZ != velocityZ) {
+						ahrsData.velocityZ = velocityZ;
+						WebDashboard.set("ahrs.velocityZ", velocityZ);
+					}
+					float tempC = ahrs.getTempC();
+					if (ahrsData.tempC != tempC) {
+						ahrsData.tempC = tempC;
+						WebDashboard.set("ahrs.tempC", tempC);
+					}
+					float worldLinearAccelX = ahrs.getWorldLinearAccelX();
+					if (ahrsData.worldLinearAccelX != worldLinearAccelX) {
+						ahrsData.worldLinearAccelX = worldLinearAccelX;
+						WebDashboard.set("ahrs.worldLinearAccelX", worldLinearAccelX);
+					}
+					float worldLinearAccelY = ahrs.getWorldLinearAccelY();
+					if (ahrsData.worldLinearAccelY != worldLinearAccelY) {
+						ahrsData.worldLinearAccelY = worldLinearAccelY;
+						WebDashboard.set("ahrs.worldLinearAccelY", worldLinearAccelY);
+					}
+					float worldLinearAccelZ = ahrs.getWorldLinearAccelZ();
+					if (ahrsData.worldLinearAccelZ != worldLinearAccelZ) {
+						ahrsData.worldLinearAccelZ = worldLinearAccelZ;
+						WebDashboard.set("ahrs.worldLinearAccelZ", worldLinearAccelZ);
+					}
+					boolean altitudeValid = ahrs.isAltitudeValid();
+					if (ahrsData.altitudeValid != altitudeValid) {
+						ahrsData.altitudeValid = altitudeValid;
+						WebDashboard.set("ahrs.altitudeValid", altitudeValid);
+					}
+					boolean calibrating = ahrs.isCalibrating();
+					if (ahrsData.calibrating != calibrating) {
+						ahrsData.calibrating = calibrating;
+						WebDashboard.set("ahrs.calibrating", calibrating);
+					}
+					boolean connected = ahrs.isConnected();
+					if (ahrsData.connected != connected) {
+						ahrsData.connected = connected;
+						WebDashboard.set("ahrs.connected", connected);
+					}
+					boolean magneticDisturbance = ahrs.isMagneticDisturbance();
+					if (ahrsData.magneticDisturbance != magneticDisturbance) {
+						ahrsData.magneticDisturbance = magneticDisturbance;
+						WebDashboard.set("ahrs.magneticDisturbance", magneticDisturbance);
+					}
+					boolean magnetometerCalibrated = ahrs.isMagnetometerCalibrated();
+					if (ahrsData.magnetometerCalibrated != magnetometerCalibrated) {
+						ahrsData.magnetometerCalibrated = magnetometerCalibrated;
+						WebDashboard.set("ahrs.magnetometerCalibrated", magnetometerCalibrated);
+					}
+					boolean moving = ahrs.isMoving();
+					if (ahrsData.moving != moving) {
+						ahrsData.moving = moving;
+						WebDashboard.set("ahrs.moving", moving);
+					}
+					boolean rotating = ahrs.isRotating();
+					if (ahrsData.rotating != rotating) {
+						ahrsData.rotating = rotating;
+						WebDashboard.set("ahrs.rotating", rotating);
+					}
+//					String firmwareVersion = ahrs.getFirmwareVersion();
+//					if (ahrsData.firmwareVersion != firmwareVersion) {
+//						ahrsData.firmwareVersion = firmwareVersion;
+//						WebDashboard.set("ahrs.firmwareVersion", firmwareVersion);
+//					}
 				}
 			}
 		}, 0, 250);
@@ -231,4 +423,46 @@ public class Diagnostics {
 		return c.getInputStream();
 	}
 
+	private static void initAHRS() {
+		ahrs = new AHRS(I2C.Port.kMXP);
+		ahrsData = new AHRSData(
+				ahrs.getPitch(),
+				ahrs.getRoll(),
+				ahrs.getYaw(),
+				ahrs.getRate(),
+				ahrs.getAngle(),
+				ahrs.getAngleAdjustment(),
+				ahrs.getByteCount(),
+				ahrs.getCompassHeading(),
+				ahrs.getFusedHeading(),
+				ahrs.getRawAccelX(),
+				ahrs.getRawAccelY(),
+				ahrs.getRawAccelZ(),
+				ahrs.getRawGyroX(),
+				ahrs.getRawGyroY(),
+				ahrs.getRawGyroZ(),
+				ahrs.getRawMagX(),
+				ahrs.getRawMagY(),
+				ahrs.getRawMagZ(),
+				ahrs.getDisplacementX(),
+				ahrs.getDisplacementY(),
+				ahrs.getDisplacementZ(),
+				ahrs.getVelocityX(),
+				ahrs.getVelocityY(),
+				ahrs.getVelocityZ(),
+				ahrs.getTempC(),
+				ahrs.getWorldLinearAccelX(),
+				ahrs.getWorldLinearAccelY(),
+				ahrs.getWorldLinearAccelZ(),
+				ahrs.isAltitudeValid(),
+				ahrs.isCalibrating(),
+				ahrs.isConnected(),
+				ahrs.isMagneticDisturbance(),
+				ahrs.isMagnetometerCalibrated(),
+				ahrs.isMoving(),
+				ahrs.isRotating(),
+				ahrs.getFirmwareVersion()
+		);
+		WebDashboard.set("ahrs", ahrsData);
+	}
 }
