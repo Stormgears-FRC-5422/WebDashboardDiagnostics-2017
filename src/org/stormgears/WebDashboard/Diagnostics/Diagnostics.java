@@ -71,7 +71,7 @@ public class Diagnostics {
 			e.printStackTrace();
 		}
 
-		ahrs = new AHRS(I2C.Port.kMXP);
+		initAHRS();
 
 		Timer timer = new Timer("diagnosticsTimer");
 		timer.scheduleAtFixedRate(new TimerTask() {
