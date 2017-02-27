@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="webdashboard-diagnostics:jar">
+  <artifact type="jar" build-on-make="true" name="webdashboard-diagnostics:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/webdashboard-diagnostics</output-path>
     <root id="archive" name="webdashboard-diagnostics.jar">
       <element id="module-output" name="WebDashboardDiagnostics" />

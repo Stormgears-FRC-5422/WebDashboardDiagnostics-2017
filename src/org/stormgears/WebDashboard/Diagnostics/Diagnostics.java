@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
+import org.stormgears.StormUtils.SafeTalon;
 import org.stormgears.WebDashboard.WebDashboard;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -24,7 +25,7 @@ public class Diagnostics {
 	/**
 	 * A list of Talon SRX devices attached to the robot
 	 */
-	static ArrayList<CANTalon> talons = new ArrayList<>();
+	static ArrayList<SafeTalon> talons = new ArrayList<>();
 	static ArrayList<TalonData> talonDatas = new ArrayList<>();
 
 	static AHRS ahrs;
@@ -79,7 +80,7 @@ public class Diagnostics {
 			public void run() {
 				// Talons
 				for (int i = 0; i < talons.size(); i++) {
-					CANTalon talon = talons.get(i);
+					SafeTalon talon = talons.get(i);
 					TalonData talonData = talonDatas.get(i);
 
 					// update the WebDashboard data
@@ -374,7 +375,7 @@ public class Diagnostics {
 			devices.add(dev);
 			if (dev.type.equalsIgnoreCase("Talon SRX")) {
 				byte talon = Byte.parseByte(dev.properties.get(0x1A110000).value);
-				CANTalon canTalon = new CANTalon(talon);
+				SafeTalon canTalon = new SafeTalon(talon);
 				talons.add(canTalon);
 				talonDatas.add(new TalonData(
 						canTalon.getDeviceID(),
