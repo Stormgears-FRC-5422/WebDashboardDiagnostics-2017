@@ -88,61 +88,61 @@ public class Diagnostics {
 					// sorry
 					CANTalon.ControlMode controlMode = talon.getControlMode();
 					if (controlMode != talonData.controlMode) {
-						WebDashboard.set("talons[" + i + "].controlMode", controlMode);
+						WebDashboard.set("diagnostics", "talons[" + i + "].controlMode", controlMode);
 						talonData.controlMode = controlMode;
 					}
 
 					double getValue = talon.get();
 					if (getValue != talonData.getValue) {
-						WebDashboard.set("talons[" + i + "].getValue", getValue);
+						WebDashboard.set("diagnostics", "talons[" + i + "].getValue", getValue);
 						talonData.getValue = getValue;
 					}
 
 					double busVoltage = talon.getBusVoltage();
 					if (busVoltage != talonData.busVoltage) {
-						WebDashboard.set("talons[" + i + "].busVoltage", busVoltage);
+						WebDashboard.set("diagnostics", "talons[" + i + "].busVoltage", busVoltage);
 						talonData.busVoltage = busVoltage;
 					}
 
 					int encPosition = talon.getEncPosition();
 					if (encPosition != talonData.encPosition) {
-						WebDashboard.set("talons[" + i + "].encPosition", encPosition);
+						WebDashboard.set("diagnostics", "talons[" + i + "].encPosition", encPosition);
 						talonData.encPosition = encPosition;
 					}
 
 					int encVelocity = talon.getEncVelocity();
 					if (encVelocity != talonData.encVelocity) {
-						WebDashboard.set("talons[" + i + "].encVelocity", encVelocity);
+						WebDashboard.set("diagnostics", "talons[" + i + "].encVelocity", encVelocity);
 						talonData.encVelocity = encVelocity;
 					}
 
 					double outputCurrent = talon.getOutputCurrent();
 					if (outputCurrent != talonData.outputCurrent) {
-						WebDashboard.set("talons[" + i + "].outputCurrent", outputCurrent);
+						WebDashboard.set("diagnostics", "talons[" + i + "].outputCurrent", outputCurrent);
 						talonData.outputCurrent = outputCurrent;
 					}
 
 					double outputVoltage = talon.getOutputVoltage();
 					if (outputVoltage != talonData.outputVoltage) {
-						WebDashboard.set("talons[" + i + "].outputVoltage", outputVoltage);
+						WebDashboard.set("diagnostics", "talons[" + i + "].outputVoltage", outputVoltage);
 						talonData.outputVoltage = outputVoltage;
 					}
 
 					double position = talon.getPosition();
 					if (position != talonData.position) {
-						WebDashboard.set("talons[" + i + "].position", position);
+						WebDashboard.set("diagnostics", "talons[" + i + "].position", position);
 						talonData.position = position;
 					}
 
 					double speed = talon.getSpeed();
 					if (speed != talonData.speed) {
-						WebDashboard.set("talons[" + i + "].speed", speed);
+						WebDashboard.set("diagnostics", "talons[" + i + "].speed", speed);
 						talonData.speed = speed;
 					}
 
 					double temperature = talon.getTemperature();
 					if (temperature != talonData.temperature) {
-						WebDashboard.set("talons[" + i + "].temperature", temperature);
+						WebDashboard.set("diagnostics", "talons[" + i + "].temperature", temperature);
 						talonData.temperature = temperature;
 					}
 				}
@@ -152,182 +152,182 @@ public class Diagnostics {
 					float pitch = ahrs.getPitch();
 					if (ahrsData.pitch != pitch) {
 						ahrsData.pitch = pitch;
-						WebDashboard.set("ahrs.pitch", pitch);
+						WebDashboard.set("diagnostics", "ahrs.pitch", pitch);
 					}
 					float roll = ahrs.getRoll();
 					if (ahrsData.roll != roll) {
 						ahrsData.roll = roll;
-						WebDashboard.set("ahrs.roll", roll);
+						WebDashboard.set("diagnostics", "ahrs.roll", roll);
 					}
 					float yaw = ahrs.getYaw();
 					if (ahrsData.yaw != yaw) {
 						ahrsData.yaw = yaw;
-						WebDashboard.set("ahrs.yaw", yaw);
+						WebDashboard.set("diagnostics", "ahrs.yaw", yaw);
 					}
 					double rate = ahrs.getRate();
 					if (ahrsData.rate != rate) {
 						ahrsData.rate = rate;
-						WebDashboard.set("ahrs.rate", rate);
+						WebDashboard.set("diagnostics", "ahrs.rate", rate);
 					}
 					double angle = ahrs.getAngle();
 					if (ahrsData.angle != angle) {
 						ahrsData.angle = angle;
-						WebDashboard.set("ahrs.angle", angle);
+						WebDashboard.set("diagnostics", "ahrs.angle", angle);
 					}
 					double angleAdjustment = ahrs.getAngleAdjustment();
 					if (ahrsData.angleAdjustment != angleAdjustment) {
 						ahrsData.angleAdjustment = angleAdjustment;
-						WebDashboard.set("ahrs.angleAdjustment", angleAdjustment);
+						WebDashboard.set("diagnostics", "ahrs.angleAdjustment", angleAdjustment);
 					}
 					double byteCount = ahrs.getByteCount();
 					if (ahrsData.byteCount != byteCount) {
 						ahrsData.byteCount = byteCount;
-						WebDashboard.set("ahrs.byteCount", byteCount);
+						WebDashboard.set("diagnostics", "ahrs.byteCount", byteCount);
 					}
 					float compassHeading = ahrs.getCompassHeading();
 					if (ahrsData.compassHeading != compassHeading) {
 						ahrsData.compassHeading = compassHeading;
-						WebDashboard.set("ahrs.compassHeading", compassHeading);
+						WebDashboard.set("diagnostics", "ahrs.compassHeading", compassHeading);
 					}
 					float fusedHeading = ahrs.getFusedHeading();
 					if (ahrsData.fusedHeading != fusedHeading) {
 						ahrsData.fusedHeading = fusedHeading;
-						WebDashboard.set("ahrs.fusedHeading", fusedHeading);
+						WebDashboard.set("diagnostics", "ahrs.fusedHeading", fusedHeading);
 					}
 					float rawAccelX = ahrs.getRawAccelX();
 					if (ahrsData.rawAccelX != rawAccelX) {
 						ahrsData.rawAccelX = rawAccelX;
-						WebDashboard.set("ahrs.rawAccelX", rawAccelX);
+						WebDashboard.set("diagnostics", "ahrs.rawAccelX", rawAccelX);
 					}
 					float rawAccelY = ahrs.getRawAccelY();
 					if (ahrsData.rawAccelY != rawAccelY) {
 						ahrsData.rawAccelY = rawAccelY;
-						WebDashboard.set("ahrs.rawAccelY", rawAccelY);
+						WebDashboard.set("diagnostics", "ahrs.rawAccelY", rawAccelY);
 					}
 					float rawAccelZ = ahrs.getRawAccelZ();
 					if (ahrsData.rawAccelZ != rawAccelZ) {
 						ahrsData.rawAccelZ = rawAccelZ;
-						WebDashboard.set("ahrs.rawAccelZ", rawAccelZ);
+						WebDashboard.set("diagnostics", "ahrs.rawAccelZ", rawAccelZ);
 					}
 					float rawGyroX = ahrs.getRawGyroX();
 					if (ahrsData.rawGyroX != rawGyroX) {
 						ahrsData.rawGyroX = rawGyroX;
-						WebDashboard.set("ahrs.rawGyroX", rawGyroX);
+						WebDashboard.set("diagnostics", "ahrs.rawGyroX", rawGyroX);
 					}
 					float rawGyroY = ahrs.getRawGyroY();
 					if (ahrsData.rawGyroY != rawGyroY) {
 						ahrsData.rawGyroY = rawGyroY;
-						WebDashboard.set("ahrs.rawGyroY", rawGyroY);
+						WebDashboard.set("diagnostics", "ahrs.rawGyroY", rawGyroY);
 					}
 					float rawGyroZ = ahrs.getRawGyroZ();
 					if (ahrsData.rawGyroZ != rawGyroZ) {
 						ahrsData.rawGyroZ = rawGyroZ;
-						WebDashboard.set("ahrs.rawGyroZ", rawGyroZ);
+						WebDashboard.set("diagnostics", "ahrs.rawGyroZ", rawGyroZ);
 					}
 					float rawMagX = ahrs.getRawMagX();
 					if (ahrsData.rawMagX != rawMagX) {
 						ahrsData.rawMagX = rawMagX;
-						WebDashboard.set("ahrs.rawMagX", rawMagX);
+						WebDashboard.set("diagnostics", "ahrs.rawMagX", rawMagX);
 					}
 					float rawMagY = ahrs.getRawMagY();
 					if (ahrsData.rawMagY != rawMagY) {
 						ahrsData.rawMagY = rawMagY;
-						WebDashboard.set("ahrs.rawMagY", rawMagY);
+						WebDashboard.set("diagnostics", "ahrs.rawMagY", rawMagY);
 					}
 					float rawMagZ = ahrs.getRawMagZ();
 					if (ahrsData.rawMagZ != rawMagZ) {
 						ahrsData.rawMagZ = rawMagZ;
-						WebDashboard.set("ahrs.rawMagZ", rawMagZ);
+						WebDashboard.set("diagnostics", "ahrs.rawMagZ", rawMagZ);
 					}
 					float displacementX = ahrs.getDisplacementX();
 					if (ahrsData.displacementX != displacementX) {
 						ahrsData.displacementX = displacementX;
-						WebDashboard.set("ahrs.displacementX", displacementX);
+						WebDashboard.set("diagnostics", "ahrs.displacementX", displacementX);
 					}
 					float displacementY = ahrs.getDisplacementY();
 					if (ahrsData.displacementY != displacementY) {
 						ahrsData.displacementY = displacementY;
-						WebDashboard.set("ahrs.displacementY", displacementY);
+						WebDashboard.set("diagnostics", "ahrs.displacementY", displacementY);
 					}
 					float displacementZ = ahrs.getDisplacementZ();
 					if (ahrsData.displacementZ != displacementZ) {
 						ahrsData.displacementZ = displacementZ;
-						WebDashboard.set("ahrs.displacementZ", displacementZ);
+						WebDashboard.set("diagnostics", "ahrs.displacementZ", displacementZ);
 					}
 					float velocityX = ahrs.getVelocityX();
 					if (ahrsData.velocityX != velocityX) {
 						ahrsData.velocityX = velocityX;
-						WebDashboard.set("ahrs.velocityX", velocityX);
+						WebDashboard.set("diagnostics", "ahrs.velocityX", velocityX);
 					}
 					float velocityY = ahrs.getVelocityY();
 					if (ahrsData.velocityY != velocityY) {
 						ahrsData.velocityY = velocityY;
-						WebDashboard.set("ahrs.velocityY", velocityY);
+						WebDashboard.set("diagnostics", "ahrs.velocityY", velocityY);
 					}
 					float velocityZ = ahrs.getVelocityZ();
 					if (ahrsData.velocityZ != velocityZ) {
 						ahrsData.velocityZ = velocityZ;
-						WebDashboard.set("ahrs.velocityZ", velocityZ);
+						WebDashboard.set("diagnostics", "ahrs.velocityZ", velocityZ);
 					}
 					float tempC = ahrs.getTempC();
 					if (ahrsData.tempC != tempC) {
 						ahrsData.tempC = tempC;
-						WebDashboard.set("ahrs.tempC", tempC);
+						WebDashboard.set("diagnostics", "ahrs.tempC", tempC);
 					}
 					float worldLinearAccelX = ahrs.getWorldLinearAccelX();
 					if (ahrsData.worldLinearAccelX != worldLinearAccelX) {
 						ahrsData.worldLinearAccelX = worldLinearAccelX;
-						WebDashboard.set("ahrs.worldLinearAccelX", worldLinearAccelX);
+						WebDashboard.set("diagnostics", "ahrs.worldLinearAccelX", worldLinearAccelX);
 					}
 					float worldLinearAccelY = ahrs.getWorldLinearAccelY();
 					if (ahrsData.worldLinearAccelY != worldLinearAccelY) {
 						ahrsData.worldLinearAccelY = worldLinearAccelY;
-						WebDashboard.set("ahrs.worldLinearAccelY", worldLinearAccelY);
+						WebDashboard.set("diagnostics", "ahrs.worldLinearAccelY", worldLinearAccelY);
 					}
 					float worldLinearAccelZ = ahrs.getWorldLinearAccelZ();
 					if (ahrsData.worldLinearAccelZ != worldLinearAccelZ) {
 						ahrsData.worldLinearAccelZ = worldLinearAccelZ;
-						WebDashboard.set("ahrs.worldLinearAccelZ", worldLinearAccelZ);
+						WebDashboard.set("diagnostics", "ahrs.worldLinearAccelZ", worldLinearAccelZ);
 					}
 					boolean altitudeValid = ahrs.isAltitudeValid();
 					if (ahrsData.altitudeValid != altitudeValid) {
 						ahrsData.altitudeValid = altitudeValid;
-						WebDashboard.set("ahrs.altitudeValid", altitudeValid);
+						WebDashboard.set("diagnostics", "ahrs.altitudeValid", altitudeValid);
 					}
 					boolean calibrating = ahrs.isCalibrating();
 					if (ahrsData.calibrating != calibrating) {
 						ahrsData.calibrating = calibrating;
-						WebDashboard.set("ahrs.calibrating", calibrating);
+						WebDashboard.set("diagnostics", "ahrs.calibrating", calibrating);
 					}
 					boolean connected = ahrs.isConnected();
 					if (ahrsData.connected != connected) {
 						ahrsData.connected = connected;
-						WebDashboard.set("ahrs.connected", connected);
+						WebDashboard.set("diagnostics", "ahrs.connected", connected);
 					}
 					boolean magneticDisturbance = ahrs.isMagneticDisturbance();
 					if (ahrsData.magneticDisturbance != magneticDisturbance) {
 						ahrsData.magneticDisturbance = magneticDisturbance;
-						WebDashboard.set("ahrs.magneticDisturbance", magneticDisturbance);
+						WebDashboard.set("diagnostics", "ahrs.magneticDisturbance", magneticDisturbance);
 					}
 					boolean magnetometerCalibrated = ahrs.isMagnetometerCalibrated();
 					if (ahrsData.magnetometerCalibrated != magnetometerCalibrated) {
 						ahrsData.magnetometerCalibrated = magnetometerCalibrated;
-						WebDashboard.set("ahrs.magnetometerCalibrated", magnetometerCalibrated);
+						WebDashboard.set("diagnostics", "ahrs.magnetometerCalibrated", magnetometerCalibrated);
 					}
 					boolean moving = ahrs.isMoving();
 					if (ahrsData.moving != moving) {
 						ahrsData.moving = moving;
-						WebDashboard.set("ahrs.moving", moving);
+						WebDashboard.set("diagnostics", "ahrs.moving", moving);
 					}
 					boolean rotating = ahrs.isRotating();
 					if (ahrsData.rotating != rotating) {
 						ahrsData.rotating = rotating;
-						WebDashboard.set("ahrs.rotating", rotating);
+						WebDashboard.set("diagnostics", "ahrs.rotating", rotating);
 					}
 //					String firmwareVersion = ahrs.getFirmwareVersion();
 //					if (ahrsData.firmwareVersion != firmwareVersion) {
 //						ahrsData.firmwareVersion = firmwareVersion;
-//						WebDashboard.set("ahrs.firmwareVersion", firmwareVersion);
+//						WebDashboard.set("diagnostics", "ahrs.firmwareVersion", firmwareVersion);
 //					}
 				}
 			}
@@ -393,8 +393,8 @@ public class Diagnostics {
 			}
 		}
 
-		WebDashboard.set("devices", devices);
-		WebDashboard.set("talons", talonDatas);
+		WebDashboard.set("diagnostics", "devices", devices);
+		WebDashboard.set("diagnostics", "talons", talonDatas);
 	}
 
 	private static InputStream getDeviceStream() throws Exception {
@@ -464,6 +464,6 @@ public class Diagnostics {
 				ahrs.isRotating(),
 				ahrs.getFirmwareVersion()
 		);
-		WebDashboard.set("ahrs", ahrsData);
+		WebDashboard.set("diagnostics", "ahrs", ahrsData);
 	}
 }
