@@ -29,7 +29,10 @@
         <NATIVE>
           <root url="file://$USER_HOME$/wpilib/user/java/lib" />
         </NATIVE>
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+          <root url="jar://$USER_HOME$/wpilib/user/java/lib/webdashboard-all-1.0-SNAPSHOT.jar!/" />
+        </SOURCES>
         <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="false" />
       </library>
     </orderEntry>
