@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import org.stormgears.StormUtils.SafeTalon;
 import org.stormgears.WebDashboard.WebDashboard;
 import org.w3c.dom.Document;
@@ -425,7 +426,7 @@ public class Diagnostics {
 	}
 
 	private static void initAHRS() {
-		ahrs = new AHRS(I2C.Port.kMXP);
+		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrsData = new AHRSData(
 				ahrs.getPitch(),
 				ahrs.getRoll(),
