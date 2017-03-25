@@ -28,44 +28,42 @@ class PrintStreamInterceptor extends PrintStream {
 
 	@Override
 	public void print(boolean b) {
-		super.print(b);
-		_append(String.valueOf(b));
+		print(String.valueOf(b));
 	}
 
 	@Override
 	public void print(char c) {
-		super.print(c);
-		_append(String.valueOf(c));
+		print(String.valueOf(c));
 	}
 
 	@Override
 	public void print(int i) {
-		super.print(i);
-		_append(String.valueOf(i));
+		print(String.valueOf(i));
 	}
 
 	@Override
 	public void print(long l) {
-		super.print(l);
-		_append(String.valueOf(l));
+		print(String.valueOf(l));
 	}
 
 	@Override
 	public void print(float f) {
-		super.print(f);
-		_append(String.valueOf(f));
+		print(String.valueOf(f));
 	}
 
 	@Override
 	public void print(double d) {
-		super.print(d);
-		_append(String.valueOf(d));
+		print(String.valueOf(d));
 	}
 
 	@Override
 	public void print(char[] s) {
-		super.print(s);
-		_append(String.valueOf(s));
+		print(String.valueOf(s));
+	}
+
+	@Override
+	public void print(Object obj) {
+		print(String.valueOf(obj));
 	}
 
 	@Override
@@ -76,12 +74,6 @@ class PrintStreamInterceptor extends PrintStream {
 			s = "null";
 		}
 		_append(s);
-	}
-
-	@Override
-	public void print(Object obj) {
-		super.print(obj);
-		_append(String.valueOf(obj));
 	}
 
 	private void _flush() {
