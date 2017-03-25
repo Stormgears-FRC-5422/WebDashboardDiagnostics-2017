@@ -45,22 +45,9 @@ public class Diagnostics {
 		 * (this is not working right now, disable it)
 		 */
 
-		// exception handler
-		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-			@Override
-			public void uncaughtException(Thread t, Throwable e) {
-				log("EXCEP", "Thread: " + t);
-
-				StringWriter out = new StringWriter();
-				e.printStackTrace(new PrintWriter(out));
-				log("EXCEP", out.toString());
-
-				e.printStackTrace();
-			}
-		});
-
-		// intercept system.out
+		// intercept System.out and System.err
 		System.setOut(new PrintStreamInterceptor(System.out, "STDOUT"));
+		System.setErr(new PrintStreamInterceptor(System.err, "STDERR"));
 
 		// Place all code to run in development mode below this if statement
 		if (production) {

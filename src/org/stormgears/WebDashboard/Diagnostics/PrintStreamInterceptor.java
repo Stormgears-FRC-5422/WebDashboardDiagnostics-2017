@@ -2,128 +2,251 @@ package org.stormgears.WebDashboard.Diagnostics;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public
 class PrintStreamInterceptor extends PrintStream {
 
 	private final String type;
 
+	private StringBuilder buf = new StringBuilder();
+	private Method newLineMethod;
+
 	public PrintStreamInterceptor(OutputStream out, String type) {
 		super(out);
+
+		try {
+			newLineMethod = getClass().getSuperclass().getDeclaredMethod("newLine");
+			newLineMethod.setAccessible(true);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+
 		this.type = type;
 	}
 
 	@Override
 	public void print(boolean b) {
 		super.print(b);
-		Diagnostics.log(type, String.valueOf(b));
+		_append(String.valueOf(b));
 	}
 
 	@Override
 	public void print(char c) {
 		super.print(c);
-		Diagnostics.log(type, String.valueOf(c));
+		_append(String.valueOf(c));
 	}
 
 	@Override
 	public void print(int i) {
 		super.print(i);
-		Diagnostics.log(type, String.valueOf(i));
+		_append(String.valueOf(i));
 	}
 
 	@Override
 	public void print(long l) {
 		super.print(l);
-		Diagnostics.log(type, String.valueOf(l));
+		_append(String.valueOf(l));
 	}
 
 	@Override
 	public void print(float f) {
 		super.print(f);
-		Diagnostics.log(type, String.valueOf(f));
+		_append(String.valueOf(f));
 	}
 
 	@Override
 	public void print(double d) {
 		super.print(d);
-		Diagnostics.log(type, String.valueOf(d));
+		_append(String.valueOf(d));
 	}
 
 	@Override
 	public void print(char[] s) {
 		super.print(s);
-		Diagnostics.log(type, String.valueOf(s));
+		_append(String.valueOf(s));
 	}
 
 	@Override
 	public void print(String s) {
 		super.print(s);
-		Diagnostics.log(type, s);
+
+		if (s == null) {
+			s = "null";
+		}
+		_append(s);
 	}
 
 	@Override
 	public void print(Object obj) {
 		super.print(obj);
-		Diagnostics.log(type, String.valueOf(obj));
+		_append(String.valueOf(obj));
 	}
 
-//	@Override
-//	public void println() {
-//		super.println();
-//		Diagnostics.log(type, "");
-//	}
-//
-//	@Override
-//	public void println(boolean x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(char x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(int x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(long x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(float x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(double x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(char[] x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(String x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
-//
-//	@Override
-//	public void println(Object x) {
-//		super.println(x);
-//		Diagnostics.log(type, String.valueOf(x));
-//	}
+	private void _flush() {
+		Diagnostics.log(type, buf.toString());
+		buf = new StringBuilder();
+	}
+
+	private void _append(String s) {
+		String[] newLines = s.split("\n", -1);
+		for (String a : newLines) {
+			buf.append(a);
+			if (a.isEmpty()) {
+				_flush();
+			}
+		}
+	}
+
+	    /* Methods that do terminate lines */
+
+	/**
+	 * Terminates the current line by writing the line separator string.  The
+	 * line separator string is defined by the system property
+	 * <code>line.separator</code>, and is not necessarily a single newline
+	 * character (<code>'\n'</code>).
+	 */
+	public void println() {
+		_newLine();
+	}
+
+	/**
+	 * Prints a boolean and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(boolean)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>boolean</code> to be printed
+	 */
+	public void println(boolean x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints a character and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(char)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>char</code> to be printed.
+	 */
+	public void println(char x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints an integer and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(int)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>int</code> to be printed.
+	 */
+	public void println(int x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints a long and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(long)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  a The <code>long</code> to be printed.
+	 */
+	public void println(long x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints a float and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(float)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>float</code> to be printed.
+	 */
+	public void println(float x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints a double and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(double)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>double</code> to be printed.
+	 */
+	public void println(double x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints an array of characters and then terminate the line.  This method
+	 * behaves as though it invokes <code>{@link #print(char[])}</code> and
+	 * then <code>{@link #println()}</code>.
+	 *
+	 * @param x  an array of chars to print.
+	 */
+	public void println(char x[]) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints a String and then terminate the line.  This method behaves as
+	 * though it invokes <code>{@link #print(String)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>String</code> to be printed.
+	 */
+	public void println(String x) {
+		synchronized (this) {
+			print(x);
+			_newLine();
+		}
+	}
+
+	/**
+	 * Prints an Object and then terminate the line.  This method calls
+	 * at first String.valueOf(x) to get the printed object's string value,
+	 * then behaves as
+	 * though it invokes <code>{@link #print(String)}</code> and then
+	 * <code>{@link #println()}</code>.
+	 *
+	 * @param x  The <code>Object</code> to be printed.
+	 */
+	public void println(Object x) {
+		String s = String.valueOf(x);
+		synchronized (this) {
+			print(s);
+			_newLine();
+		}
+	}
+
+	private void _newLine() {
+		try {
+			newLineMethod.invoke(this);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
+		_flush();
+	}
 }
