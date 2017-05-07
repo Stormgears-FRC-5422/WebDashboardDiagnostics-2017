@@ -1,4 +1,4 @@
-package org.stormgears.WebDashboard.Diagnostics;
+package org.stormgears.webdashboard.Diagnostics;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -9,10 +9,9 @@ import java.util.TimerTask;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 import org.stormgears.StormUtils.SafeTalon;
-import org.stormgears.WebDashboard.WebDashboard;
+import org.stormgears.webdashboard.WebDashboard;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 

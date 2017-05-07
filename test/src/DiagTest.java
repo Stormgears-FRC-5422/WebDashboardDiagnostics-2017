@@ -1,17 +1,13 @@
-import org.stormgears.WebDashboard.Diagnostics.Diagnostics;
-import org.stormgears.WebDashboard.WebDashboard;
+import org.stormgears.webdashboard.Diagnostics.Diagnostics;
+import org.stormgears.webdashboard.WebDashboard;
 
-//import helpers.*;
-import helpers.Main;
-import java.io.InvalidClassException;
-import java.net.URISyntaxException;
 
 /**
  * Created by andrew on 1/14/17.
  */
 public class DiagTest {
 	public static void main(String args[]) throws Exception {
-		WebDashboard.init("localhost:5802");
+		WebDashboard.init();
 		Diagnostics.init(true);
 		System.out.println("MEOW");
 

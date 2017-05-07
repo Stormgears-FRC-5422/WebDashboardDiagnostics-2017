@@ -1,4 +1,4 @@
-package org.stormgears.WebDashboard.Diagnostics;
+package org.stormgears.webdashboard.Diagnostics;
 
 /**
  * Created by andrew on 1/22/17.

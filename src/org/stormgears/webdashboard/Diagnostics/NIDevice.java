@@ -1,4 +1,4 @@
-package org.stormgears.WebDashboard.Diagnostics;
+package org.stormgears.webdashboard.Diagnostics;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

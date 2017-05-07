@@ -1,4 +1,4 @@
-package org.stormgears.WebDashboard.Diagnostics;
+package org.stormgears.webdashboard.Diagnostics;
 
 import com.ctre.CANTalon;
 

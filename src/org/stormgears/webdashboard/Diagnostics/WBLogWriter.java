@@ -1,11 +1,9 @@
-package org.stormgears.WebDashboard.Diagnostics;
+package org.stormgears.webdashboard.Diagnostics;
 
-import org.stormgears.WebDashboard.WebDashboard;
+import org.stormgears.webdashboard.WebDashboard;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Created by andrew on 1/14/17.
